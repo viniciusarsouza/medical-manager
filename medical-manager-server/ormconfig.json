@@ -5,6 +5,9 @@
     "username": "postgres",
     "password": "docker",
     "database": "medical_manager_database",
+    "entities": [
+        "./src/models/*.ts"
+    ],
     "migrations": [
         "./src/database/migrations/*.ts"
     ],
