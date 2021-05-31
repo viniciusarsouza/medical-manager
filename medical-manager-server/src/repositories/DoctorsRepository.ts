@@ -1,6 +1,7 @@
 import Doctor from '../models/Doctor';
-import { Entity, Repository } from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 
-class DoctorsRepository {}
+@EntityRepository(Doctor)
+class DoctorsRepository extends Repository<Doctor> {}
 
 export default DoctorsRepository;

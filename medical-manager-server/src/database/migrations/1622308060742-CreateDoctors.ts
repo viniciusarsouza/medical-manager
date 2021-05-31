@@ -22,15 +22,19 @@ export class CreateDoctors1622308060742 implements MigrationInterface {
                     },
                     {
                         name: 'landline',
-                        type: 'integer',
+                        type: 'varchar',
                     },
                     {
                         name: 'cellphone',
-                        type: 'integer',
+                        type: 'varchar',
                     },
                     {
                         name: 'cep',
                         type: 'integer',
+                    },
+                    {
+                        name: 'medical_specialty',
+                        type: 'varchar',
                     },
                     {
                         name: 'created_at',
