@@ -1,5 +1,7 @@
-import Doctor from '../models/Doctor';
 import { getRepository } from 'typeorm';
+
+import AppError from '../errors/AppError';
+import Doctor from '../models/Doctor';
 
 interface Request {
     name: string;
@@ -26,7 +28,7 @@ class CreateDoctorService {
         });
 
         if (checkDoctorExists) {
-            throw new Error('CRM já cadastrado.');
+            throw new AppError('CRM já cadastrado.');
         }
 
         const doctor = doctorsRepository.create({

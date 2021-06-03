@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 
+import AppError from '../errors/AppError';
 import Doctor from '../models/Doctor';
 
 class GetDoctor {
@@ -9,7 +10,7 @@ class GetDoctor {
         const doctor = await doctorsRepository.findOne(id);
 
         if (!doctor) {
-            throw new Error('Medico não encontrado.');
+            throw new AppError('Medico não encontrado.');
         }
 
         return doctor;
