@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import doctorsRouter from './doctors.routes';
+import doctorsRouter from '@modules/doctors/infra/http/routes/doctors.routes';
 
 const routes = Router();
 

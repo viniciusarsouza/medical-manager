@@ -1,7 +1,8 @@
 import { Router } from 'express';
 
-import CreateDoctorService from '../services/CreateDoctorService';
-import GetDoctorService from '../services/GetDoctorsService';
+import DoctorsRepository from '@modules/doctors/infra/typeorm/repositories/DoctorsRepository';
+import CreateDoctorService from '@modules/doctors/services/CreateDoctorService';
+import GetDoctorService from '@modules/doctors/services/GetDoctorsService';
 
 const doctorsRouter = Router();
 
@@ -9,7 +10,8 @@ doctorsRouter.post('/', async (request, response) => {
     const { name, crm, landline, cellphone, cep, medical_specialty } =
         request.body;
 
-    const createDoctor = new CreateDoctorService();
+    const doctorsRepository = new DoctorsRepository();
+    const createDoctor = new CreateDoctorService(doctorsRepository);
 
     const doctor = await createDoctor.execute({
         name,
@@ -26,7 +28,8 @@ doctorsRouter.post('/', async (request, response) => {
 doctorsRouter.get('/:id', async (request, response) => {
     const { id } = request.params;
 
-    const getDoctor = new GetDoctorService();
+    const doctorsRepository = new DoctorsRepository();
+    const getDoctor = new GetDoctorService(doctorsRepository);
 
     const doctor = await getDoctor.execute(id);
 

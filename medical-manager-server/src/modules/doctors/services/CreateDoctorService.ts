@@ -1,7 +1,8 @@
 import { getRepository } from 'typeorm';
 
-import AppError from '../errors/AppError';
-import Doctor from '../models/Doctor';
+import AppError from '@shared/errors/AppError';
+import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
+import IDoctorsRepository from '../repositories/IDoctorsRepository';
 
 interface Request {
     name: string;
@@ -13,6 +14,8 @@ interface Request {
 }
 
 class CreateDoctorService {
+    constructor(private doctorsRepository: IDoctorsRepository) {}
+
     public async execute({
         name,
         crm,
@@ -21,17 +24,13 @@ class CreateDoctorService {
         cep,
         medical_specialty,
     }: Request): Promise<Doctor> {
-        const doctorsRepository = getRepository(Doctor);
-
-        const checkDoctorExists = await doctorsRepository.findOne({
-            where: { crm },
-        });
+        const checkDoctorExists = await this.doctorsRepository.findByCrm(crm);
 
         if (checkDoctorExists) {
             throw new AppError('CRM já cadastrado.');
         }
 
-        const doctor = doctorsRepository.create({
+        const doctor = await this.doctorsRepository.create({
             name,
             crm,
             landline,
@@ -39,8 +38,6 @@ class CreateDoctorService {
             cep,
             medical_specialty,
         });
-
-        await doctorsRepository.save(doctor);
 
         return doctor;
     }
