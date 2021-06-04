@@ -1,39 +1,13 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
 
-import DoctorsRepository from '@modules/doctors/infra/typeorm/repositories/DoctorsRepository';
-import CreateDoctorService from '@modules/doctors/services/CreateDoctorService';
-import GetDoctorService from '@modules/doctors/services/GetDoctorsService';
+import DoctorsController from '../controllers/DoctorsController';
 
 const doctorsRouter = Router();
+const doctorsController = new DoctorsController();
 
-doctorsRouter.post('/', async (request, response) => {
-    const { name, crm, landline, cellphone, cep, medical_specialty } =
-        request.body;
+doctorsRouter.post('/', doctorsController.create);
 
-    const doctorsRepository = new DoctorsRepository();
-    const createDoctor = new CreateDoctorService(doctorsRepository);
-
-    const doctor = await createDoctor.execute({
-        name,
-        crm,
-        landline,
-        cellphone,
-        cep,
-        medical_specialty,
-    });
-
-    return response.json(doctor);
-});
-
-doctorsRouter.get('/:id', async (request, response) => {
-    const { id } = request.params;
-
-    const doctorsRepository = new DoctorsRepository();
-    const getDoctor = new GetDoctorService(doctorsRepository);
-
-    const doctor = await getDoctor.execute(id);
-
-    return response.json(doctor);
-});
+doctorsRouter.get('/:id', doctorsController.index);
 
 export default doctorsRouter;

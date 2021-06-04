@@ -3,9 +3,14 @@ import { getRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
 import IDoctorsRepository from '../repositories/IDoctorsRepository';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 class GetDoctor {
-    constructor(private doctorsRepository: IDoctorsRepository) {}
+    constructor(
+        @inject('DoctorsRepository')
+        private doctorsRepository: IDoctorsRepository,
+    ) {}
 
     public async execute(id: string): Promise<Doctor> {
         const doctorsRepository = getRepository(Doctor);

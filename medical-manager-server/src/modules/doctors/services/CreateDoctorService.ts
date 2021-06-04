@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
@@ -13,8 +13,12 @@ interface Request {
     medical_specialty: string;
 }
 
+@injectable()
 class CreateDoctorService {
-    constructor(private doctorsRepository: IDoctorsRepository) {}
+    constructor(
+        @inject('DoctorsRepository')
+        private doctorsRepository: IDoctorsRepository,
+    ) {}
 
     public async execute({
         name,
