@@ -33,8 +33,25 @@ export class CreateDoctors1622308060742 implements MigrationInterface {
                         type: 'integer',
                     },
                     {
-                        name: 'medical_specialty',
+                        name: 'city',
                         type: 'varchar',
+                    },
+                    {
+                        name: 'state',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'street',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'first_medical_specialty',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'second_medical_specialty',
+                        type: 'varchar',
+                        isNullable: true,
                     },
                     {
                         name: 'created_at',

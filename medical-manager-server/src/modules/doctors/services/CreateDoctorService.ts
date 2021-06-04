@@ -3,6 +3,8 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
 import IDoctorsRepository from '../repositories/IDoctorsRepository';
+import IAddressProvider from '@shared/container/providers/AddressProvider/models/IAddressProvider';
+import GetAddressProvider from '@shared/container/providers/AddressProvider/implementations/GetAddressProvider';
 
 interface Request {
     name: string;
@@ -29,6 +31,10 @@ class CreateDoctorService {
         medical_specialty,
     }: Request): Promise<Doctor> {
         const checkDoctorExists = await this.doctorsRepository.findByCrm(crm);
+
+        const addressProvider = new GetAddressProvider();
+        const address = await addressProvider.getAddress(cep);
+        console.log(address);
 
         if (checkDoctorExists) {
             throw new AppError('CRM já cadastrado.');

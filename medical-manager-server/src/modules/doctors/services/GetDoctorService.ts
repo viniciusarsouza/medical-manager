@@ -1,9 +1,9 @@
-import { getRepository } from 'typeorm';
+import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
 import IDoctorsRepository from '../repositories/IDoctorsRepository';
-import { injectable, inject } from 'tsyringe';
+import GetAddressProvider from '@shared/container/providers/AddressProvider/implementations/GetAddressProvider';
 
 @injectable()
 class GetDoctor {
@@ -13,8 +13,6 @@ class GetDoctor {
     ) {}
 
     public async execute(id: string): Promise<Doctor> {
-        const doctorsRepository = getRepository(Doctor);
-
         const doctor = await this.doctorsRepository.findById(id);
 
         if (!doctor) {
