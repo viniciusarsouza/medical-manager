@@ -1,7 +1,8 @@
+import { getRepository, Repository } from 'typeorm';
+
 import ICreateDoctorDTO from '@modules/doctors/dtos/ICreateDoctorDTO';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
 import IDoctorsRepository from '@modules/doctors/repositories/IDoctorsRepository';
-import { EntityRepository, getRepository, Repository } from 'typeorm';
 
 class DoctorsRepository implements IDoctorsRepository {
     private ormRepository: Repository<Doctor>;

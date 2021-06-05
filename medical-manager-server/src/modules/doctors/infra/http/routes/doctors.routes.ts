@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { container } from 'tsyringe';
 
 import DoctorsController from '../controllers/DoctorsController';
 
@@ -11,5 +10,7 @@ doctorsRouter.post('/', doctorsController.create);
 doctorsRouter.get('/:id', doctorsController.index);
 
 doctorsRouter.delete('/:id', doctorsController.delete);
+
+doctorsRouter.put('/:id', doctorsController.update);
 
 export default doctorsRouter;
