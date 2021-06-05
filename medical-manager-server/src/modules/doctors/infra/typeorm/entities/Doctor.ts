@@ -5,6 +5,7 @@ import {
     PrimaryColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    DeleteDateColumn,
 } from 'typeorm';
 
 @Entity('doctors')
@@ -28,13 +29,28 @@ class Doctor {
     cep: number;
 
     @Column()
-    medical_specialty: string;
+    state: string;
+
+    @Column()
+    city: string;
+
+    @Column()
+    street: string;
+
+    @Column()
+    first_medical_specialty: string;
+
+    @Column()
+    second_medical_specialty: string;
 
     @CreateDateColumn()
     created_at: Date;
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @DeleteDateColumn()
+    deleted_at: Date;
 
     constructor() {
         if (!this.id) {

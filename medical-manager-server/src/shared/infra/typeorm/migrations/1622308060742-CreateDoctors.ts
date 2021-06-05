@@ -43,6 +43,7 @@ export class CreateDoctors1622308060742 implements MigrationInterface {
                     {
                         name: 'street',
                         type: 'varchar',
+                        isNullable: true,
                     },
                     {
                         name: 'first_medical_specialty',
@@ -62,6 +63,11 @@ export class CreateDoctors1622308060742 implements MigrationInterface {
                         name: 'updated_at',
                         type: 'timestamp',
                         default: 'now()',
+                    },
+                    {
+                        name: 'deleted_at',
+                        type: 'timestamp',
+                        isNullable: true,
                     },
                 ],
             }),

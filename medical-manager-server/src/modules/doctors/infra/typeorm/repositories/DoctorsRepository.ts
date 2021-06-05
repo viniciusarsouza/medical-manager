@@ -20,7 +20,11 @@ class DoctorsRepository implements IDoctorsRepository {
         landline,
         cellphone,
         cep,
-        medical_specialty,
+        city,
+        state,
+        street,
+        first_medical_specialty,
+        second_medical_specialty,
     }: ICreateDoctorDTO): Promise<Doctor> {
         const doctor = this.ormRepository.create({
             name,
@@ -28,7 +32,11 @@ class DoctorsRepository implements IDoctorsRepository {
             landline,
             cellphone,
             cep,
-            medical_specialty,
+            city,
+            state,
+            street,
+            first_medical_specialty,
+            second_medical_specialty,
         });
 
         await this.ormRepository.save(doctor);
@@ -48,6 +56,10 @@ class DoctorsRepository implements IDoctorsRepository {
         const doctor = await this.ormRepository.findOne(id);
 
         return doctor;
+    }
+
+    public async delete(id: string): Promise<void> {
+        await this.ormRepository.softDelete(id);
     }
 }
 

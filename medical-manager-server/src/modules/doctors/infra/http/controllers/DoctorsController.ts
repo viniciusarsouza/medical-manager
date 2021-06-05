@@ -3,14 +3,22 @@ import { container } from 'tsyringe';
 
 import CreateDoctorService from '@modules/doctors/services/CreateDoctorService';
 import GetDoctorService from '@modules/doctors/services/GetDoctorService';
+import DeleteDoctorService from '@modules/doctors/services/DeleteDoctorService';
 
 class DoctorsController {
     public async create(
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { name, crm, landline, cellphone, cep, medical_specialty } =
-            request.body;
+        const {
+            name,
+            crm,
+            landline,
+            cellphone,
+            cep,
+            first_medical_specialty,
+            second_medical_specialty,
+        } = request.body;
 
         const createDoctor = container.resolve(CreateDoctorService);
 
@@ -20,7 +28,8 @@ class DoctorsController {
             landline,
             cellphone,
             cep,
-            medical_specialty,
+            first_medical_specialty,
+            second_medical_specialty,
         });
 
         return response.json(doctor);
@@ -37,6 +46,23 @@ class DoctorsController {
         const doctor = await getDoctor.execute(id);
 
         return response.json(doctor);
+    }
+
+    public async delete(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { id } = request.params;
+
+        const getDoctor = container.resolve(GetDoctorService);
+
+        const doctor = await getDoctor.execute(id);
+
+        const deleteDoctor = container.resolve(DeleteDoctorService);
+
+        await deleteDoctor.execute(id);
+
+        return response.json(`Deleted Dr. ${doctor.name}`);
     }
 }
 

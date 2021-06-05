@@ -3,7 +3,6 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
 import IDoctorsRepository from '../repositories/IDoctorsRepository';
-import GetAddressProvider from '@shared/container/providers/AddressProvider/implementations/GetAddressProvider';
 
 @injectable()
 class GetDoctor {

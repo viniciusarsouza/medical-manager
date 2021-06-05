@@ -10,4 +10,6 @@ doctorsRouter.post('/', doctorsController.create);
 
 doctorsRouter.get('/:id', doctorsController.index);
 
+doctorsRouter.delete('/:id', doctorsController.delete);
+
 export default doctorsRouter;

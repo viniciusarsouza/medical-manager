@@ -4,5 +4,9 @@ export default interface ICreateDoctorDTO {
     landline: string;
     cellphone: string;
     cep: number;
-    medical_specialty: string;
+    city?: string;
+    state?: string;
+    street?: string;
+    first_medical_specialty: string;
+    second_medical_specialty: string;
 }
