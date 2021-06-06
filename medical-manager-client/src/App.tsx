@@ -1,10 +1,11 @@
 import React from 'react';
 
 import GlobalStyle from './global';
+import ManageDoctors from './pages/ManageDoctors';
 
 const App: React.FC = () => (
     <>
-        <h1>Hello World</h1>
+        <ManageDoctors />
         <GlobalStyle />
     </>
 );

@@ -7,7 +7,9 @@ const doctorsController = new DoctorsController();
 
 doctorsRouter.post('/', doctorsController.create);
 
-doctorsRouter.get('/:id', doctorsController.index);
+doctorsRouter.get('/', doctorsController.index);
+
+doctorsRouter.get('/:id', doctorsController.getById);
 
 doctorsRouter.delete('/:id', doctorsController.delete);
 
