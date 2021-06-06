@@ -1,6 +1,5 @@
 import { injectable, inject } from 'tsyringe';
 
-import AppError from '@shared/errors/AppError';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
 import IDoctorsRepository from '../repositories/IDoctorsRepository';
 
