@@ -1,5 +1,6 @@
 import cep from 'cep-promise';
 
+import Address from '@modules/doctors/infra/typeorm/entities/Address';
 import IAddressProvider from '../models/IAddressProvider';
 
 class GetAddressProvider implements IAddressProvider {
