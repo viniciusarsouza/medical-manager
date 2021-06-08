@@ -62,6 +62,12 @@ class DoctorsRepository implements IDoctorsRepository {
     public async delete(id: string): Promise<void> {
         await this.ormRepository.softDelete(id);
     }
+
+    public async list(): Promise<Doctor[]> {
+        const doctors = await this.ormRepository.find();
+
+        return doctors;
+    }
 }
 
 export default DoctorsRepository;

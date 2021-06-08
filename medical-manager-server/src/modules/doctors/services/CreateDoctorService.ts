@@ -1,10 +1,10 @@
+import 'reflect-metadata';
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
 import IDoctorsRepository from '../repositories/IDoctorsRepository';
 import IAddressProvider from '@shared/container/providers/AddressProvider/models/IAddressProvider';
-import GetAddressProvider from '@shared/container/providers/AddressProvider/implementations/GetAddressProvider';
 
 interface Request {
     name: string;

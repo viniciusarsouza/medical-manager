@@ -5,6 +5,7 @@ import CreateDoctorService from '@modules/doctors/services/CreateDoctorService';
 import GetDoctorService from '@modules/doctors/services/GetDoctorService';
 import DeleteDoctorService from '@modules/doctors/services/DeleteDoctorService';
 import UpdateDoctorService from '@modules/doctors/services/UpdateDoctorService';
+import ListDoctorsService from '@modules/doctors/services/ListDoctorsService';
 
 class DoctorsController {
     public async create(
@@ -36,7 +37,7 @@ class DoctorsController {
         return response.json(doctor);
     }
 
-    public async index(
+    public async getById(
         request: Request,
         response: Response,
     ): Promise<Response> {
@@ -96,6 +97,17 @@ class DoctorsController {
         });
 
         return response.json(doctor);
+    }
+
+    public async index(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const listDoctors = container.resolve(ListDoctorsService);
+
+        const doctors = await listDoctors.execute();
+
+        return response.json(doctors);
     }
 }
 
