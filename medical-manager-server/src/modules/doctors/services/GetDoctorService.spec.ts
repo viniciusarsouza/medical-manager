@@ -1,10 +1,11 @@
 import AppError from '@shared/errors/AppError';
 import CreateDoctorService from './CreateDoctorService';
+import GetDoctorService from './GetDoctorService';
 import FakeDoctorsRepository from '../repositories/fakes/FakeDoctorsRepository';
 import FakeAddressProvider from '@shared/container/providers/AddressProvider/fakes/FakeAddressProvider';
 
-describe('CreateDoctor', () => {
-    it('should be able to create a new doctor', async () => {
+describe('GetDoctor', () => {
+    it('should be able to get a doctor by his ID', async () => {
         const fakeAddressProvider = new FakeAddressProvider();
         const fakeDoctorsRepository = new FakeDoctorsRepository();
         const createDoctorService = new CreateDoctorService(
@@ -22,12 +23,14 @@ describe('CreateDoctor', () => {
             second_medical_specialty: 'Neurologia',
         });
 
-        expect(doctor).toHaveProperty('id');
-        expect(doctor).toHaveProperty('city');
-        expect(doctor).toHaveProperty('state');
+        const getDoctorService = new GetDoctorService(fakeDoctorsRepository);
+
+        const getDoctor = await getDoctorService.execute(doctor.id);
+
+        expect(getDoctor.id).toBe(doctor.id);
     });
 
-    it('should not be able to create two doctors with same CRM', async () => {
+    it('should be able to return a error when dont find a doctor', async () => {
         const fakeAddressProvider = new FakeAddressProvider();
         const fakeDoctorsRepository = new FakeDoctorsRepository();
         const createDoctorService = new CreateDoctorService(
@@ -35,7 +38,7 @@ describe('CreateDoctor', () => {
             fakeAddressProvider,
         );
 
-        await createDoctorService.execute({
+        const doctor = await createDoctorService.execute({
             name: 'Doutor 1',
             crm: 123,
             cep: 123456,
@@ -45,16 +48,10 @@ describe('CreateDoctor', () => {
             second_medical_specialty: 'Neurologia',
         });
 
-        expect(
-            createDoctorService.execute({
-                name: 'Doutor 1',
-                crm: 123,
-                cep: 123456,
-                landline: '99999999',
-                cellphone: '88888888',
-                first_medical_specialty: 'Cardiologia',
-                second_medical_specialty: 'Neurologia',
-            }),
-        ).rejects.toBeInstanceOf(AppError);
+        const getDoctorService = new GetDoctorService(fakeDoctorsRepository);
+
+        expect(getDoctorService.execute('123')).rejects.toBeInstanceOf(
+            AppError,
+        );
     });
 });
