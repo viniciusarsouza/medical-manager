@@ -7,6 +7,20 @@ class FakeDoctorsRepository implements IDoctorsRepository {
     private doctors: Doctor[] = [];
 
     public async save(doctor: Doctor): Promise<Doctor> {
+        const findDoctor = this.doctors.find((doc) => doc.id === doctor.id);
+        if (findDoctor) {
+            findDoctor.name = doctor.name;
+            findDoctor.crm = doctor.crm;
+            findDoctor.cep = doctor.cep;
+            findDoctor.landline = doctor.landline;
+            findDoctor.cellphone = doctor.cellphone;
+            findDoctor.first_medical_specialty = doctor.first_medical_specialty;
+            findDoctor.second_medical_specialty =
+                doctor.second_medical_specialty;
+            findDoctor.city = 'city';
+            findDoctor.state = 'state';
+            findDoctor.street = 'street';
+        }
         return doctor;
     }
 
